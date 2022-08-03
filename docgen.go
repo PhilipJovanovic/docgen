@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/go-chi/chi/v5"
+	"github.com/PhilipJovanovic/phi"
 )
 
 type Doc struct {
@@ -36,9 +36,9 @@ type DocHandler struct {
 
 type DocHandlers map[string]DocHandler // Method : DocHandler
 
-func PrintRoutes(r chi.Routes) {
-	var printRoutes func(parentPattern string, r chi.Routes)
-	printRoutes = func(parentPattern string, r chi.Routes) {
+func PrintRoutes(r phi.Routes) {
+	var printRoutes func(parentPattern string, r phi.Routes)
+	printRoutes = func(parentPattern string, r phi.Routes) {
 		rts := r.Routes()
 		for _, rt := range rts {
 			if rt.SubRoutes == nil {
@@ -54,7 +54,7 @@ func PrintRoutes(r chi.Routes) {
 	printRoutes("", r)
 }
 
-func JSONRoutesDoc(r chi.Routes) string {
+func JSONRoutesDoc(r phi.Routes) string {
 	doc, _ := BuildDoc(r)
 	v, err := json.MarshalIndent(doc, "", "  ")
 	if err != nil {

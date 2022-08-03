@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/docgen"
-	"github.com/go-chi/docgen/raml"
+	"github.com/PhilipJovanovic/docgen"
+	"github.com/PhilipJovanovic/docgen/raml"
+	"github.com/PhilipJovanovic/phi"
+	"github.com/PhilipJovanovic/phi/middleware"
 	"github.com/go-chi/render"
 	yaml "gopkg.in/yaml.v2"
 )
@@ -26,7 +26,7 @@ func TestWalkerRAML(t *testing.T) {
 		MediaType: "application/json",
 	}
 
-	if err := chi.Walk(r, func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
+	if err := phi.Walk(r, func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		handlerInfo := docgen.GetFuncInfo(handler)
 		resource := &raml.Resource{
 			Description: handlerInfo.Comment,
@@ -44,8 +44,8 @@ func TestWalkerRAML(t *testing.T) {
 }
 
 // Copy-pasted from _examples/raml. We can't simply import it, since it's main pkg.
-func Router() chi.Router {
-	r := chi.NewRouter()
+func Router() phi.Router {
+	r := phi.NewRouter()
 
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
@@ -64,12 +64,12 @@ func Router() chi.Router {
 	})
 
 	// RESTy routes for "articles" resource
-	r.Route("/articles", func(r chi.Router) {
+	r.Route("/articles", func(r phi.Router) {
 		r.With(paginate).Get("/", ListArticles)
 		r.Post("/", CreateArticle)       // POST /articles
 		r.Get("/search", SearchArticles) // GET /articles/search
 
-		r.Route("/:articleID", func(r chi.Router) {
+		r.Route("/:articleID", func(r phi.Router) {
 			r.Use(ArticleCtx)            // Load the *Article on the request context
 			r.Get("/", GetArticle)       // GET /articles/123
 			r.Put("/", UpdateArticle)    // PUT /articles/123
@@ -78,7 +78,7 @@ func Router() chi.Router {
 	})
 
 	// Mount the admin sub-router, the same as a call to
-	// Route("/admin", func(r chi.Router) { with routes here })
+	// Route("/admin", func(r phi.Router) { with routes here })
 	r.Mount("/admin", adminRouter())
 
 	return r
@@ -100,7 +100,7 @@ var articles = []*Article{
 // the Article could not be found, we stop here and return a 404.
 func ArticleCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		articleID := chi.URLParam(r, "articleID")
+		articleID := phi.URLParam(r, "articleID")
 		article, err := dbGetArticle(articleID)
 		if err != nil {
 			render.Status(r, http.StatusNotFound)
@@ -113,7 +113,7 @@ func ArticleCtx(next http.Handler) http.Handler {
 }
 
 // Search Articles.
-// Searches the Articles data for a matching article.
+// Searches the Articles data for a matphing article.
 // It's just a stub, but you get the idea.
 func SearchArticles(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, articles)
@@ -158,8 +158,8 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 // A completely separate router for administrator routes
-func adminRouter() chi.Router {
-	r := chi.NewRouter()
+func adminRouter() phi.Router {
+	r := phi.NewRouter()
 	r.Use(AdminOnly)
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("admin: index"))
@@ -168,7 +168,7 @@ func adminRouter() chi.Router {
 		w.Write([]byte("admin: list accounts.."))
 	})
 	r.Get("/users/:userId", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(fmt.Sprintf("admin: view user id %v", chi.URLParam(r, "userId"))))
+		w.Write([]byte(fmt.Sprintf("admin: view user id %v", phi.URLParam(r, "userId"))))
 	})
 	return r
 }

@@ -7,12 +7,12 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/go-chi/chi/v5"
+	"github.com/PhilipJovanovic/phi"
 )
 
 type MarkdownDoc struct {
 	Opts   MarkdownOpts
-	Router chi.Router
+	Router phi.Router
 	Doc    Doc
 	Routes map[string]DocRouter // Pattern : DocRouter
 
@@ -32,11 +32,11 @@ type MarkdownOpts struct {
 	// URLMap allows specifying a map of package import paths to their link sources
 	// Used for mapping vendored dependencies to their upstream sources
 	// For example:
-	// map[string]string{"github.com/my/package/vendor/go-chi/chi/": "https://github.com/go-chi/chi/blob/master/"}
+	// map[string]string{"github.com/my/package/vendor/go-phi/phi/": "https://github.com/go-phi/phi/blob/master/"}
 	URLMap map[string]string
 }
 
-func MarkdownRoutesDoc(r chi.Router, opts MarkdownOpts) string {
+func MarkdownRoutesDoc(r phi.Router, opts MarkdownOpts) string {
 	md := &MarkdownDoc{Router: r, Opts: opts}
 	if err := md.Generate(); err != nil {
 		return fmt.Sprintf("ERROR: %s\n", err.Error())

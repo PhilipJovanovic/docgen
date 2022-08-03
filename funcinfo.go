@@ -31,7 +31,7 @@ func GetFuncInfo(i interface{}) FuncInfo {
 	}
 
 	pkgName := getPkgName(frame.File)
-	if pkgName == "chi" {
+	if pkgName == "phi" {
 		fi.Unresolvable = true
 	}
 	funcPath := frame.Func.Name()

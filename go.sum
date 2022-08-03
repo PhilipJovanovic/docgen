@@ -1,5 +1,5 @@
-github.com/go-chi/chi/v5 v5.0.1 h1:ALxjCrTf1aflOlkhMnCUP86MubbWFrzB3gkRPReLpTo=
-github.com/go-chi/chi/v5 v5.0.1/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
+github.com/PhilipJovanovic/phi v0.0.5 h1:k6hlWOHHfPBfgTcUO29hRsxQhx5f/+lWlacvUBkOOoM=
+github.com/PhilipJovanovic/phi v0.0.5/go.mod h1:AFcT2SSsyiWSNLeZ4fYgXLAhKpcuL4bZrDpNHn1fwlI=
 github.com/go-chi/render v1.0.1 h1:4/5tis2cKaNdnv9zFLfXzcquC9HbeZgCnxGnKrltBS8=
 github.com/go-chi/render v1.0.1/go.mod h1:pq4Rr7HbnsdaeHagklXub+p6Wd16Af5l9koip1OvJns=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=

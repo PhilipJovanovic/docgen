@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/go-chi/chi/v5"
+	"github.com/PhilipJovanovic/phi"
 )
 
-func BuildDoc(r chi.Routes) (Doc, error) {
+func BuildDoc(r phi.Routes) (Doc, error) {
 	d := Doc{}
 
 	goPath := os.Getenv("GOPATH")
@@ -24,7 +24,7 @@ func BuildDoc(r chi.Routes) (Doc, error) {
 	return d, nil
 }
 
-func buildDocRouter(r chi.Routes) DocRouter {
+func buildDocRouter(r phi.Routes) DocRouter {
 	rts := r
 	dr := DocRouter{Middlewares: []DocMiddleware{}}
 	drts := DocRoutes{}
@@ -55,7 +55,7 @@ func buildDocRouter(r chi.Routes) DocRouter {
 				dh := DocHandler{Method: method, Middlewares: []DocMiddleware{}}
 
 				var endpoint http.Handler
-				chain, _ := h.(*chi.ChainHandler)
+				chain, _ := h.(*phi.ChainHandler)
 
 				if chain != nil {
 					for _, mw := range chain.Middlewares {
@@ -91,7 +91,7 @@ func buildFuncInfo(i interface{}) FuncInfo {
 	}
 
 	pkgName := getPkgName(frame.File)
-	if pkgName == "chi" {
+	if pkgName == "phi" {
 		fi.Unresolvable = true
 	}
 	funcPath := frame.Func.Name()
