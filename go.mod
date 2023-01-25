@@ -1,4 +1,4 @@
-module github.com/PhilipJovanovic/docgen
+module go.philip.id/docgen
 
 go 1.15
 

@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/PhilipJovanovic/docgen"
 	"github.com/PhilipJovanovic/phi"
+	"go.philip.id/docgen"
 )
 
 // RequestID comment goes here.
