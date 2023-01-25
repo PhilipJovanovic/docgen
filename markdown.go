@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/PhilipJovanovic/phi"
+	"go.philip.id/phi"
 )
 
 type MarkdownDoc struct {

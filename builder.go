@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/PhilipJovanovic/phi"
+	"go.philip.id/phi"
 )
 
 func BuildDoc(r phi.Routes) (Doc, error) {

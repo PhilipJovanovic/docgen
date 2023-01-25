@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/PhilipJovanovic/phi"
-	"github.com/PhilipJovanovic/phi/middleware"
 	"github.com/go-chi/render"
 	"go.philip.id/docgen"
 	"go.philip.id/docgen/raml"
+	"go.philip.id/phi"
+	"go.philip.id/phi/middleware"
 	yaml "gopkg.in/yaml.v2"
 )
 

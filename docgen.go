@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/PhilipJovanovic/phi"
+	"go.philip.id/phi"
 )
 
 type Doc struct {
